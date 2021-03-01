@@ -5,13 +5,14 @@
 <div class="row mt-3">
     <div class="col-12">
         <app-alert #alert></app-alert>
-        <table class="table table-bordered">
+        <table class="table table-bordered text-center">
             <tr>
                 <th>ID</th>
                 <th>Produto</th>
                 <th>Nome</th>
                 <th>Nota</th>
                 <th>Comentário</th>
+                <th>Ações</th>
             </tr>
             <tr *ngFor="let item of items">
                 <td>{{ item.id }}</td>
