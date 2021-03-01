@@ -13,8 +13,8 @@ class ProductRatingController extends Controller
     public function index($product_id) {
         try {
             $product = Product::findOrFail($product_id);
-            $interests = $product->interests()->get();
-            return response()->json($interests, 200);
+            $ratings = $product->ratings()->get();
+            return response()->json($ratings, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Produto não encontrado'], 404);
         }
@@ -22,8 +22,8 @@ class ProductRatingController extends Controller
 
     public function show($product_id, $id) {
         try {
-            $interest = ProductRating::findOrFail($id);
-            return response()->json($interest, 200);
+            $rating = ProductRating::findOrFail($id);
+            return response()->json($rating, 200);
         } catch(ModelNotFoundException $e) {
             return response()->json(['message' => 'Avaliação não encontrada'], 404);
         }
@@ -34,7 +34,7 @@ class ProductRatingController extends Controller
         $rules = [
             'product_id' => 'required|exists:products,id',
             'name' => 'required',
-            'grade' => 'required',
+            'grade' => 'required|digits_between:0,1',
             'comment' => 'required'
         ];
 
@@ -43,19 +43,20 @@ class ProductRatingController extends Controller
             'product_id.exists' => 'O atributo product_id deve conter um ID válido',
             'name.required' => 'O atributo name é obrigatório',
             'grade.required' => 'O atributo grade é obrigatório',
+            'grade.digits_between' => 'O atributo grade deve ter um valor entre 0 e 10',
             'comment.required' => 'O atributo comment é obrigatório',
         ];
 
         $this->validate($request, $rules, $messages);
 
-        $Interest = new ProductRating();
+        $Rating = new ProductRating();
 
-        $Interest->product_id = $request->input('product_id');
-        $Interest->name = $request->input('name');
-        $Interest->email = $request->input('email');
-        $Interest->message = $request->input('message');
+        $Rating->product_id = $request->input('product_id');
+        $Rating->name = $request->input('name');
+        $Rating->grade = $request->input('grade');
+        $Rating->comment = $request->input('comment');
 
-        $Interest->save();
+        $Rating->save();
 
         return response()->json(['message' => 'Avaliação cadastrada com sucesso!'], 201);
     }
@@ -64,7 +65,7 @@ class ProductRatingController extends Controller
         $rules = [
             'product_id' => 'required|exists:products,id',
             'name' => 'required',
-            'email' => 'required',
+            'grade' => 'required|digits_between:0,1',
             'comment' => 'required'
         ];
 
@@ -73,20 +74,21 @@ class ProductRatingController extends Controller
             'product_id.exists' => 'O atributo product_id deve conter um ID válido',
             'name.required' => 'O atributo name é obrigatório',
             'grade.required' => 'O atributo grade é obrigatório',
+            'grade.digits_between' => 'O atributo grade deve ter um valor entre 0 e 10',
             'comment.required' => 'O atributo comment é obrigatório',
         ];
 
         $this->validate($request, $rules, $messages);
 
         try {
-            $Interest = ProductRating::findOrFail($id);
+            $Rating = ProductRating::findOrFail($id);
     
-            $Interest->product_id = $request->input('product_id');
-            $Interest->name = $request->input('name');
-            $Interest->grade = $request->input('grade');
-            $Interest->comment = $request->input('comment');
+            $Rating->product_id = $request->input('product_id');
+            $Rating->name = $request->input('name');
+            $Rating->grade = $request->input('grade');
+            $Rating->comment = $request->input('comment');
     
-            $Interest->save();
+            $Rating->save();
     
             return response()->json(['message' => 'Avaliação cadastrada com sucesso!', 201]);
         } catch (ModelNotFoundException $e) {
@@ -97,9 +99,9 @@ class ProductRatingController extends Controller
 
     public function destroy($id) {
         try {
-            $interest = ProductRating::findOrFail($id);
+            $rating = ProductRating::findOrFail($id);
     
-            $interest->delete();
+            $rating->delete();
 
             return response()->json(['message' => 'Avaliação removida com sucesso!'], 200);
         } catch (ModelNotFoundException $e) {

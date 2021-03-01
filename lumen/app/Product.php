@@ -9,8 +9,8 @@ class Product extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function interests() {
-        return $this->hasMany('App\ProductInterest');
+    public function ratings() {
+        return $this->hasMany('App\ProductRating');
     }
 
     public function getActiveAttribute($value) {
