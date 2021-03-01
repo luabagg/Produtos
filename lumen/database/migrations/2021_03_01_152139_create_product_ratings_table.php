@@ -17,7 +17,7 @@ class CreateProductRatingsTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->string('name', 255);
-            $table->decimal('grade', 2);
+            $table->integer('grade');
             $table->text('comment');
 
             $table->timestamps();
