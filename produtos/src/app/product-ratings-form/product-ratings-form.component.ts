@@ -63,8 +63,9 @@ export class ProductRatingsFormComponent implements OnInit {
     this.alert.type = 'danger';
 
     var message = "Não foi possível salvar";
-    switch(error.status){
+    switch (error.status) {
       case 422: message = 'Não foi possível salvar. Os campos destacados estão inválidos:'; break;
+      case 500: message = 'Algum erro interno ocorreu'; break;
     }
     this.alert.message = message;
   }
