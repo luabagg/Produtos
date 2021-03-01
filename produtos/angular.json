@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -71,7 +72,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "produtos:build:production"
+              "browserTarget": "produtos:build:production",
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },
