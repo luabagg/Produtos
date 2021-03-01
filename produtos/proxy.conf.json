@@ -1,0 +1,11 @@
+{
+    "/api/*": {
+        "target": "http://development/Programa%c3%a7%c3%a3o%20Web/Produtos/lumen/public",
+        "secure": false,
+        "pathRewrite": {
+            "^/api" : ""
+        },
+        "changeOrigin": true,
+        "loglevel": "debug"
+    }
+}
