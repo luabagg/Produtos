@@ -25,7 +25,7 @@ class ProductRatingController extends Controller
             $interest = ProductRating::findOrFail($id);
             return response()->json($interest, 200);
         } catch(ModelNotFoundException $e) {
-            return response()->json(['message' => 'Interesse não encontrado'], 404);
+            return response()->json(['message' => 'Avaliação não encontrada'], 404);
         }
 
     }
@@ -57,7 +57,7 @@ class ProductRatingController extends Controller
 
         $Interest->save();
 
-        return response()->json(['message' => 'Interesse cadastrado com sucesso!'], 201);
+        return response()->json(['message' => 'Avaliação cadastrada com sucesso!'], 201);
     }
 
     public function update(Request $request, $id) {
@@ -88,10 +88,10 @@ class ProductRatingController extends Controller
     
             $Interest->save();
     
-            return response()->json(['message' => 'Interesse cadastrado com sucesso!', 201]);
+            return response()->json(['message' => 'Avaliação cadastrada com sucesso!', 201]);
         } catch (ModelNotFoundException $e) {
 
-            return response()->json(['message' => 'Interesse não encontrado'], 404);
+            return response()->json(['message' => 'Avaliação não encontrada'], 404);
         }
     }
 
@@ -101,10 +101,10 @@ class ProductRatingController extends Controller
     
             $interest->delete();
 
-            return response()->json(['message' => 'Interesse removido com sucesso!'], 200);
+            return response()->json(['message' => 'Avaliação removida com sucesso!'], 200);
         } catch (ModelNotFoundException $e) {
             
-            return response()->json(['message' => 'Interesse não encontrado'], 404);
+            return response()->json(['message' => 'Avaliação não encontrada'], 404);
         }
     }
 
